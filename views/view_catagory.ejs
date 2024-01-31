@@ -1,0 +1,156 @@
+<%- include('header')%>
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+          
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix mb-20">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">catagory Table</h4>
+                        <p>catagory <code>.table</code></p>
+                    </div>
+                    <div class="pull-right">
+                        <a href="#basic-table" class="btn btn-primary btn-sm scroll-click" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-code"></i> Source Code</a>
+                    </div>
+                </div>
+                <table class="table table-data2">
+                            
+                    <form>
+                    
+                         <input type="text" value="" name="search">
+                         <input type="submit" value="Search">
+                    </form>
+
+                    <form action="/admin/catagory/deleteall" method="post">
+                    <thead>
+                        <tr>
+                            <th>
+                                <label class="au-checkbox">
+                                    <input type="checkbox" id="ckbCheckAll">
+                                    <span class="au-checkmark"></span>
+                                    <button class="item border-0" data-toggle="tooltip" data-placement="top" title="Delete" style="margin: -5px 0px 0px 25px; transform: translate(10px, -5px);">
+                                        <i class="dw dw-delete-3"></i>
+                                    </button>
+                                </label>
+                               
+                            </th>
+                            <th>catagory</th>
+                        
+                            
+                            <th>status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <%
+                           if(adminData!= ''){ 
+                        for(var ad of adminData){%>
+                        <tr class="tr-shadow">
+                            <td>
+                                <label class="au-checkbox">
+                                    <input type="checkbox" class="checkBoxClass" name="deleteall[]" value="<%=ad.id%>">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </td>
+                            <td><%= ad.name%></td>
+                            
+                            
+                          
+                            <td>
+                                <% if(ad.isActive){ %>
+                                    <a href="/admin/catagory/setDeactive/<%= ad.id%>" class="alert alert-success">Active</a>
+                                <%}else{%>
+                                    <a href="/admin/catagory/setActive/<%= ad.id%>" class="alert alert-danger">Deactive</a>
+                                <%}%>
+                            </td>
+                            <td>
+                                <div class="table-data-feature">
+                                    
+                                  
+                                        <a href="/admin/catagory/updatecatagory/<%= ad.id%>"><i class="dw dw-edit2"></i></a>
+                               
+                                    <button class="item border-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
+                                        <a href="/admin/catagory/deletecatagorydata/<%= ad.id%>"><i class="dw dw-delete-3"></i></a>
+                                    </button>
+                                   
+                                </div>
+                            </td>
+                        </tr>
+                        <%} } else{%>
+                            <tr>
+                                <td colspan="10">record</td>
+                            </tr>
+                            <%}%>
+                            <tr>
+                                <td colspan="10">
+
+                                    
+                                    <%for(var i=0; i<totaldoc ; i++){%>
+                                        <a href="?page=<%=i%>&search=<%=search%>"><%=i+1%></a>
+                                    <%}%>
+                                        
+
+                                        
+
+                                    
+                                </td>
+                                
+                            </tr>
+
+                            <tr>
+                                
+                                    <td colspan="10">
+                                        <%var pre = parseInt(cpage)-1%>
+                                        <% if(pre>=0){%>
+                                            <a href="?page=<%=pre%>">Pre</a>
+                                       <%}%>
+
+                                            
+                                       <a href="?page=<%=page%>&search=<%=search%>"><%=parseInt(page)+1%></a>
+
+                                       <%var nextpage = parseInt(cpage)+1%>
+                                       <% if(totaldoc>nextpage){%>
+                                        <a href="?page=<%=nextpage%>">Next</a>
+                                         <%}%>
+
+                                    </td>
+                                
+                            </tr>
+                        <tr class="spacer"></tr>
+                    </tbody>
+                </form>
+                </table>
+					<div class="collapse collapse-box" id="basic-table" >
+						<div class="code-box">
+							<div class="clearfix">
+								<a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left"  data-clipboard-target="#basic-table-code"><i class="fa fa-clipboard"></i> Copy Code</a>
+								<a href="#basic-table" class="btn btn-primary btn-sm pull-right" rel="content-y"  data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
+							</div>
+							<pre><code class="xml copy-pre" id="basic-table-code">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+    </tr>
+  </tbody>
+</table>
+							</code></pre>
+						</div>
+					</div>
+				</div>
+				<!-- basic table  End -->
+<%- include('footer')%>
+
+<script>
+    $(document).ready(function () {
+        $("#ckbCheckAll").click(function () {
+            $(".checkBoxClass").attr('checked', this.checked);
+        });
+    });
+</script> 

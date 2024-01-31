@@ -1,0 +1,84 @@
+<%- include('header')%>
+
+    <!-- MAIN CONTENT-->
+    <div class="main-container">
+        <div class="main-content">
+            <div class="section__content section__content--p30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>extracatagory</strong> Record
+                                </div>
+                                <div class="card-body card-block">
+                                    <form action="/admin/extracat/add_extracatagorydata" method="post"
+                                        class="form-horizontal">
+
+
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="select" class=" form-control-label">Select Category</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+
+                                                <select name="excategoryid" id="CategoryId"
+                                                    onchange=" return getSubcategoryId()" class="form-control">
+                                                    <option>Please select Category</option>
+                                                    <% for(var cat of cata){%>
+                                                        <option value="<%= cat.id%>">
+                                                            <%= cat.name%>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="select" class=" form-control-label">Select
+                                                    subCategory</label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+
+                                                <select name="exsubcatagory" id="SubcategoryId" class="form-control">
+                                                    <option>Please select Category</option>
+                                                    <% for(var cat of subdata){%>
+                                                        <option value="<%= cat.id%>">
+                                                            <%= cat.subcatagory%>
+                                                        </option>
+                                                        <%}%>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row form-group">
+                                            <div class="col col-md-3">
+                                                <label for="text-input" class=" form-control-label">Extracatagory
+                                                </label>
+                                            </div>
+                                            <div class="col-12 col-md-9">
+                                                <input type="text" id="text-input" name="extracatagory"
+                                                    placeholder="extracatagory name" class="form-control">
+                                            </div>
+                                        </div>
+
+
+
+
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-dot-circle-o"></i> Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-danger btn-sm">
+                                        <i class="fa fa-ban"></i> Reset
+                                    </button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- include('footer')%>

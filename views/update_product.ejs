@@ -1,0 +1,198 @@
+<%- include('header')%>
+
+  <!-- MAIN CONTENT-->
+  <div class="main-container">
+  <div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+               <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>product</strong> Record
+                        </div>
+                        <div class="card-body card-block">
+                            <form action="/admin/product/editproduct" method="post"  class="form-horizontal" enctype="multipart/form-data">
+                               
+                              
+                                
+                                <input type="hidden" name="EditId" value="<%= up.id%>">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="select" class=" form-control-label">Select Category</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        
+                                        <select name="product_categoryId"  id="CategoryId" onchange="return getSubcategoryId()"  class="form-control">
+                                            <option >Please select Category</option>
+                                            <% for(var cat of cata){%>
+                                                <option value="<%= cat.id%>"<% if(cat.id==up.product_categoryId){%><%= 'selected'%><%}%>><%= cat.name%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>  
+
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="select" class=" form-control-label">Select subCategory</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        
+                                        <select name="product_subcategoryId" id="SubcategoryId" onchange="return getExtracategoryId()" class="form-control">
+                                            <option >Please select subCategory</option>
+                                            <% for(var cat of subdata){%>
+                                                <option value="<%= cat.id%>"<% if(cat.id==up.product_subcategoryId){%><%= 'selected'%><%}%>><%= cat.subcatagory%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>  
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="select" class=" form-control-label">Select Extracatagory</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        
+                                        <select name="product_extracategoryId" id="ExtracategoryId"  class="form-control">
+                                            <option >Please select extraCategory</option>
+                                            <% for(var ex of extradata){%>
+                                                <option value="<%= ex.id%>"<% if(ex.id==up.product_extracategoryId){%><%= 'selected'%><%}%>><%= ex.extracatagory%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div> 
+                                
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">select brand </label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="product_brandId"  class="form-control">
+                                            <option >Please select brand</option>
+                                            <% for(var b of allbrand){%>
+                                                <option value="<%= b.id%>"<% if(b.id==up.product_brandId){%><%= 'selected'%><%}%>><%= b.brand%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">select type </label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <select name="product_typeId"  class="form-control">
+                                            <option >Please select type</option>
+                                            <% for(var t of alltype){%>
+                                                <option value="<%= t.id%>"<% if(t.id==up.product_typeId){%><%= 'selected'%><%}%>><%= t.type%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label" name="product" value="<%=up.product%>">Enter product</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input"  value="<%=up.product%>"name="product" placeholder="Enter product" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Enter product price</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="pprice"  value="<%=up.pprice%>" placeholder="Enter product price" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Enter product old-price</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="old_price"  value="<%=up.old_price%>"placeholder="Enter product old-price" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Select product color</label>
+                                    </div>
+                                    <div class="col col-md-9">
+                                        <div class="form-check-inline form-check">
+                                            <label for="inline-radio1" class="form-check-label ">
+                                                <input type="radio" id="inline-radio1" value="black" name="color"class="form-check-input" <% if(up.color=='black'){%><%= 'checked'%><%}%>  >black
+                                            </label>
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" id="inline-radio2" name="color"  value="green" class="form-check-input" <% if(up.color=='green'){%><%= 'checked'%><%}%> >green
+                                            </label>
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" id="inline-radio3" name="color"  value="yellow" class="form-check-input" <% if(up.color=='yellow'){%><%= 'checked'%><%}%> >yellow
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label class=" form-control-label">Select product size</label>
+                                    </div>
+                                    <div class="col col-md-9">
+                                        <div class="form-check-inline form-check">
+                                            <label for="inline-radio1" class="form-check-label ">
+                                                <input type="radio" id="inline-radio1" name="size"   class="form-check-input"<% if(up.size=='20'){%><%= 'checked'%><%}%> >20
+                                            </label>
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" id="inline-radio2" name="size" class="form-check-input" <% if(up.size=='40'){%><%= 'checked'%><%}%> >40
+                                            </label>
+                                            <label for="inline-radio2" class="form-check-label ">
+                                                <input type="radio" id="inline-radio3" name="size"  class="form-check-input" <% if(up.size=='60'){%><%= 'checked'%><%}%>>60
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="textarea-input" class=" form-control-label">Description</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <textarea name="description" id="textarea-input" rows="3" placeholder="Description..." class="form-control" value="<%= up.description%>"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="file-input" class=" form-control-label">product image</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" id="file-input" name="product_image" value="<%=up.product_image%>" class="form-control-file">
+                                        <img src="<%=up.product_image%>" alt="up.product_image"  height="200" width="100">
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="file-multiple-input" class=" form-control-label">Product MultipaleImage</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" name="product_multi_image" multiple class="form-control-file"  value="<%=up.product_multi_image%>">
+                                        <% up.product_multi_image.forEach((v,i)=>{%>
+                                        <img src="<%=up.product_multi_image[i]%>" alt="up.product_image" height="200" width="100">
+                                        <%})%>
+                                    </div>
+                                </div>
+                                
+                              
+        
+                             
+                                
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-dot-circle-o"></i> Submit
+                            </button>
+                            <button type="reset" class="btn btn-danger btn-sm">
+                                <i class="fa fa-ban"></i> Reset
+                            </button>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<%- include('footer')%>

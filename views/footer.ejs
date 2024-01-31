@@ -1,0 +1,87 @@
+<div class="footer-wrap pd-20 mb-20 card-box">
+ Admin Template By <a href="https://github.com/dropways" target="_blank">HARSH Dodiya</a>
+</div>
+</div>
+</div>
+<!-- js -->
+<script src="/vendors/scripts/core.js"></script>
+<script src="/vendors/scripts/script.min.js"></script>
+<script src="/vendors/scripts/process.js"></script>
+<script src="/vendors/scripts/layout-settings.js"></script>
+<script src="/src/plugins/apexcharts/apexcharts.min.js"></script>
+<script src="/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<script src="/vendors/scripts/dashboard.js"></script>
+</body>
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.js"></script>
+
+<% if(locals.flash.success && locals.flash.success.length >0) {%>
+<script>
+       new Noty({
+    type: 'success',
+    theme :'relax',
+    layout: 'topRight',
+    text: '<%= locals.flash.success%>',
+    timeout : 1000
+}).show();
+</script>
+<%}%>
+
+<script>
+    // select-option Ajax
+    function getSubcategoryId(){
+        var catId = document.getElementById('CategoryId').value;
+        $.ajax({
+            url : "/admin/extracat/getSubcategoryId",
+            type : "post",
+            data : {
+                categoryId : catId
+            },
+            success  : function(res){
+                $("#SubcategoryId").html(res)
+                // alert("hii")
+            }
+        })
+    }
+
+    function getExtracategoryId(){
+       
+        var subcatId = document.getElementById("SubcategoryId").value;
+        $.ajax({
+            url : "/admin/extracat/getExtracategoryId",
+            type : "post",
+            data : {
+                SubId : subcatId,
+            },
+            success : function(res){
+                $("#extraid").html(res)
+            }
+        });
+    }
+
+    function getbrandId(){
+        var catId = document.getElementById("CategoryId").value;
+        var subId = document.getElementById("SubcategoryId").value;
+        var extraId = document.getElementById("extraCategoryId").value;
+        // console.log(catId);
+        // console.log(subId);
+        // console.log(extraId);
+        $.ajax({
+            url:"/admin/extracat/getBrandTypeData",
+            type:"post",
+            data:{
+                categoryId : catId,
+                subCatId : subId,
+                extraCatId : extraId
+            },
+            success:function(r){
+                $("#brandTypeId").html(r);
+                // alert("hi");
+            }
+        })
+    }
+</script>
